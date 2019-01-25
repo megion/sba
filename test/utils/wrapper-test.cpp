@@ -1,16 +1,28 @@
-#include "wrapper-test.h"
+#include "wrapper-test.hpp"
 
 namespace test {
-namespace sba {
-namespace utils {
 
+reflection_helper FooA::call_info = reflection_helper();
+reflection_helper FooB::call_info = reflection_helper();
 
-void wrapper_test()
-{
-    suite("Task 1");
-    //mytest(group_min_points);
+void test_swap() {
+    FooA *a = new FooB();
+    a->some_foo_func();
+
+    FooB *b = new FooB();
+    b->some_foo_func();
+
+    delete a;
+    delete b;
+    // sba::utils::swap();
+    // assert(childIndex == 3);
 }
 
+void wrapper_test() {
+    suite("wrapper");
+    mytest(swap);
 }
-}
-}
+
+//}
+//}
+} // namespace test

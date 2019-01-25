@@ -1,7 +1,7 @@
-#include "utils/wrapper-test.h"
+#include "utils/wrapper-test.hpp"
 
 int main(int argc, char** argv)
 {
-    test::sba::utils::wrapper_test();
+    test::wrapper_test();
     return 0;
 }

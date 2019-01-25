@@ -1,3 +1,6 @@
+#ifndef SBA_UTILS_WRAPPER_HPP
+#define SBA_UTILS_WRAPPER_HPP
+
 #include <exception>
 #include <iostream>
 #include <stdexcept>
@@ -16,3 +19,5 @@ void swap_optimal(const T &a, const T &b);
 
 } // namespace utils
 } // namespace sba
+
+#endif
