@@ -1,10 +1,9 @@
-#ifndef TEST_TEST_HPP
-#define TEST_TEST_HPP
+#pragma once
 
 #include <iostream>
 
-#include <assert.h>
-#include <stdio.h>
+#include <cassert>
+#include <cstdio>
 
 #include "console_colors.hpp"
 
@@ -12,16 +11,16 @@
  * Test the given `fn`.
  */
 #define mytest(fn)                                                             \
-    printf("    " GREEN_COLOR "✓ %s" RESET_COLOR "\n", #fn);                   \
+    std::printf("    " GREEN_COLOR "✓ %s" RESET_COLOR "\n", #fn);              \
     test_##fn();
 
 /*
  * Test suite title.
  */
-#define suite(title) printf("\n  " CYAN_COLOR "%s" RESET_COLOR "\n", title)
+#define suite(title) std::printf("\n  " CYAN_COLOR "%s" RESET_COLOR "\n", title)
 
 #define assert_range(val, middle, offset)                                      \
-    assert((middle - offset < val) && (val < middle + offset));
+    std::assert((middle - offset < val) && (val < middle + offset));
 
 namespace test {
 
@@ -29,7 +28,7 @@ namespace test {
  * call constructor/destrutor reflection helper
  */
 class reflection_helper {
-     public:
+public:
     size_t default_constructor_call_count;
     size_t copy_constructor_call_count;
     size_t move_constructor_call_count;
@@ -66,6 +65,15 @@ class reflection_helper {
         clear_resources_call_count = 0;
     }
 };
+
+/*
+ * TODO: implement first call initalization like:
+ * reflection_helper &get_demo_array_rh() {
+ *     static reflection_helper rh;
+ *     return rh;
+ }
+ */
+//reflection_helper &get_demo_array_rh();
 
 /**
  * demo array
@@ -229,5 +237,3 @@ private:
     double *arr_b;
 };
 } // namespace test
-
-#endif

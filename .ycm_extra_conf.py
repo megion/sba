@@ -58,6 +58,14 @@ flags = [
 'c++',
 '-I./src',
 '-I./test'
+# '-isystem', '/usr/lib/gcc/x86_64-redhat-linux/8/include',
+# '-isystem', '/usr/include',
+# '-isystem', '/usr/local/include',
+
+# '-isystem', '/usr/include/c++/8',
+# '-isystem', '/usr/include/c++/8/backward',
+# '-isystem', '/usr/include/c++/8/x86_64-redhat-linux'
+
 ]
 
 

@@ -15,7 +15,7 @@ void test_swap() {
     delete a;
     delete b;
     // sba::utils::swap();
-    // assert(childIndex == 3);
+    // std::assert(childIndex == 3);
 }
 
 void wrapper_test() {

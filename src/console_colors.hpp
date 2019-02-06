@@ -1,7 +1,6 @@
-#ifndef SBA_UTILS_CONSOLE_COLORS_HPP
-#define SBA_UTILS_CONSOLE_COLORS_HPP
+#pragma once
 
-#include <stdio.h>
+#include <cstdio>
 
 #define RESET_COLOR "\033[0m"
 #define BLACK_COLOR "\033[30m"   /* Black */
@@ -34,7 +33,7 @@
 
 #define WHERESTR "%s:%d: "
 #define WHEREARG __FILE__, __LINE__
-#define PRINT_DEBUG_STR(...) printf(__VA_ARGS__)
+#define PRINT_DEBUG_STR(...) std::printf(__VA_ARGS__)
 #define LOG(X, _fmt, ...)                                                      \
     if ((LOG_LEVEL & X) == X) {                                                \
         if ((X == WARN)) {                                                     \
@@ -49,5 +48,3 @@
             PRINT_DEBUG_STR(WHERESTR _fmt "\n", WHEREARG, ##__VA_ARGS__);      \
         }                                                                      \
     }
-
-#endif

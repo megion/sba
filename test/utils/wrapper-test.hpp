@@ -1,5 +1,4 @@
-#ifndef TEST_WRAPPER_TEST_HPP
-#define TEST_WRAPPER_TEST_HPP
+#pragma once
 
 #include <cstdlib>
 #include <iostream>
@@ -14,5 +13,3 @@ namespace test {
 void wrapper_test();
 
 }
-
-#endif
