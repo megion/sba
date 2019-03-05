@@ -16,8 +16,6 @@ namespace utils {
 class String {
 public:
     struct Srep;
-    Srep *rep;
-
     class Cref;
 
     String();               // x = "";
@@ -29,6 +27,9 @@ public:
     String &operator=(String &&) = delete;
 
     ~String();
+
+private:
+    Srep *rep_;
 };
 
 /*
