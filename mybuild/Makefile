@@ -7,6 +7,9 @@
 # 	<команда1>
 # 	<команда2>
 
+S_DIR := ../src
+T_DIR := ../test
+
 CC := g++ #clang++ #g++
 # -lxcb for xcb lib
 # -lX11 for X11 lib
@@ -15,13 +18,13 @@ CC := g++ #clang++ #g++
 CCFLAGS := -std=c++11 -g
 
 # список каталогов с исходыми кодами
-SRC_DIRS := $(shell find ../src -type d)
-TEST_DIRS := $(shell find ../test -type d) $(SRC_DIRS)
+SRC_DIRS := $(shell find $(S_DIR) -type d)
+TEST_DIRS := $(shell find $(T_DIR) -type d) $(SRC_DIRS)
 
 # список всех файлов *.cpp
-SRC := $(shell find ../src -name *.cpp)
+SRC := $(shell find $(S_DIR) -name *.cpp)
 # test files contains all files in ../src and exclude sba-main file
-TEST_SRC := $(shell find {../test,../src} -name *.cpp | sed '/sba-main/d')
+TEST_SRC := $(shell find {$(T_DIR),$(S_DIR)} -name *.cpp | sed '/sba-main/d')
 
 # Укороченный вызов функции patsubst
 # $(имя_переменной:.старый_суффикс=.новый_суффикс)
