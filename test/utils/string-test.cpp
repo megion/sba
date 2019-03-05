@@ -10,7 +10,7 @@ void test_init_string() {
 void test_read_string() {
     const sba::utils::String a = "test"; // const
     char e = a[1]; // a.operator[i]
-    assert(e == 'i', "myfile");
+    my_assert(e == 'i');
 }
 
 void string_test() {

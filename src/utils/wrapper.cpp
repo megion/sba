@@ -24,5 +24,12 @@ void swap_optimal(const T &a, const T &b) {
     b = std::move(temp); // call copy replacement operator
 }
 
+void __my_assert(const char *expr_str, bool expr, const char *file, int line) {
+    if (!expr) {
+        std::printf("%s:%d: %s\n", file, line, expr_str);
+        std::exit(EXIT_FAILURE);
+    }
+}
+
 } // namespace utils
 } // namespace sba

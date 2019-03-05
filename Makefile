@@ -1,5 +1,5 @@
-S_DIR := $(shell pwd)/src
-T_DIR := $(shell pwd)/test
+S_DIR := ./src
+T_DIR := ./test
 
 CC := g++ #clang++ #g++
 # -lxcb for xcb lib

@@ -5,7 +5,8 @@
 #include <cassert>
 #include <cstdio>
 
-#include "console_colors.hpp"
+#include "console-colors.hpp"
+#include "utils/wrapper.hpp"
 
 /*
  * Test the given `fn`.
@@ -20,7 +21,7 @@
 #define suite(title) std::printf("\n  " CYAN_COLOR "%s" RESET_COLOR "\n", title)
 
 #define assert_range(val, middle, offset)                                      \
-    std::assert((middle - offset < val) && (val < middle + offset));
+    my_assert((middle - offset < val) && (val < middle + offset));
 
 namespace test {
 

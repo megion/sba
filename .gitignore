@@ -2,11 +2,10 @@
 *.slo
 *.lo
 *.o
+*.d
 *.obj
-mybuild/*.o
-mybuild/*.d
-mybuild/sba
-mybuild/test_runner
+sba
+sba_test
 build
 
 # Precompiled Headers
@@ -18,9 +17,6 @@ build
 *.so
 *.dylib
 *.dll
-
-# Fortran module files
-*.mod
 
 # Compiled Static libraries
 *.lai
