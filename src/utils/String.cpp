@@ -60,6 +60,16 @@ String &String::operator=(const String &x) {
     return *this;
 }
 
+String &String::operator+=(const String &x) {
+    // TODO: not implemented yet
+    return *this;
+}
+
+String &String::operator+=(const char *s) {
+    // TODO: not implemented yet
+    return *this;
+}
+
 String::~String() {
     if (--rep_->req_count == 0) {
         delete rep_;

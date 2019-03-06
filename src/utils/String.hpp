@@ -31,6 +31,9 @@ public:
     String &operator=(const String &);
     String &operator=(String &&) = delete;
 
+    String &operator+=(const String &);
+    String &operator+=(const char*);
+
     ~String();
 
 private:
