@@ -38,7 +38,7 @@ String::String(const char *s) { rep_ = new Srep(std::strlen(s), s); }
 
 String::String(const String &x) {
     x.rep_->req_count++;
-    rep_ = x.rep_; // shared representation (call assign operator)
+    rep_ = x.rep_; // shared representation
 }
 
 String &String::operator=(const char *s) {

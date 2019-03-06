@@ -26,7 +26,8 @@ void swap_optimal(const T &a, const T &b) {
 
 void __my_assert(const char *expr_str, bool expr, const char *file, int line) {
     if (!expr) {
-        std::printf("%s:%d: %s\n", file, line, expr_str);
+        std::printf("%s:%d: %s %sAssertion%s \n", file, line, expr_str,
+                    RED_COLOR, RESET_COLOR);
         std::exit(EXIT_FAILURE);
     }
 }

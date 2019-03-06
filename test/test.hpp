@@ -12,13 +12,13 @@
  * Test the given `fn`.
  */
 #define mytest(fn)                                                             \
-    std::printf("    " GREEN_COLOR "✓ %s" RESET_COLOR "\n", #fn);              \
+    std::printf(GREEN_COLOR "    ✓ %s " RESET_COLOR "\n", #fn);              \
     test_##fn();
 
 /*
  * Test suite title.
  */
-#define suite(title) std::printf("\n  " CYAN_COLOR "%s" RESET_COLOR "\n", title)
+#define suite(title) std::printf("\n" CYAN_COLOR "  %s " RESET_COLOR "\n", title)
 
 #define assert_range(val, middle, offset)                                      \
     my_assert((middle - offset < val) && (val < middle + offset));

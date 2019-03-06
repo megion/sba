@@ -43,6 +43,7 @@ public:
     char operator[](size_t i) const; // s[i] where s is const object
 
     size_t size() const;
+    size_t get_request_count() const; // get this value for debug or test
 };
 
 /*
@@ -103,6 +104,7 @@ inline char String::read(size_t i) const { return rep_->str[i]; }
 inline String::Cref String::operator[](size_t i) { return Cref(*this, i); }
 inline char String::operator[](size_t i) const { return rep_->str[i]; }
 inline size_t String::size() const { return rep_->length; }
+inline size_t String::get_request_count() const { return rep_->req_count; }
 
 } // namespace utils
 } // namespace sba

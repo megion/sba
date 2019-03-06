@@ -26,9 +26,7 @@ SRC_OBJS := $(notdir $(patsubst %.cpp, %.o, $(SRC)))
 TEST_OBJS := $(notdir $(patsubst %.cpp, %.o, $(TEST_SRC)))
 
 
-all: test
-
-# all: sba sba_test
+all: sba test
 
 # создание выполняемого файла
 sba: $(SRC_OBJS)
@@ -49,10 +47,12 @@ VPATH := $(TEST_DIRS)
 # в указанных директориях
 # флаг -MMD для создания файлов *.d со списком зависимостей: сам исходный файл,
 # и файлы, включаемые с помощью директивы #include "имя_файла"  
+# printf "\e[32m%s\e[0m\n" $@
 %.o: %.cpp
-	$(CC) $(CCFLAGS) -c -MMD $(addprefix -I, $(TEST_DIRS)) $<
-	@printf "\e[36m$(CC)\e[32m %s\e[0m\n" $@
+	$(CC) $(CCFLAGS) -c -MMD $(addprefix -I, $(TEST_DIRS)) $< 
+	@
 include $(wildcard *.d)
+	
 
 # очистка	
 clean:
