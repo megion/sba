@@ -70,6 +70,7 @@ struct String::Srep {
     Srep *get_own_copy();
 
     void assign(size_t len, const char *s);
+    void append(size_t len, const char *s);
 
     // private:
     Srep(const Srep &) = delete;

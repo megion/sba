@@ -29,6 +29,17 @@ void Srep::assign(size_t len, const char *s) {
     std::strcpy(str, s);
 }
 
+void Srep::append(size_t len, const char *s) {
+    size_t new_len = length + len;
+    char* new_str = new char[new_len + 1];
+
+    std::strncpy(new_str, str, length);
+    std::strncpy(new_str+length, s, len);
+    delete[] str;
+    str = new_str;
+    length = new_len;
+}
+
 /**
  * default value is empty string
  */
@@ -61,12 +72,14 @@ String &String::operator=(const String &x) {
 }
 
 String &String::operator+=(const String &x) {
-    // TODO: not implemented yet
+    rep_ = rep_->get_own_copy(); // copy on write
+    rep_->append(x.rep_->length, x.rep_->str);
     return *this;
 }
 
 String &String::operator+=(const char *s) {
-    // TODO: not implemented yet
+    rep_ = rep_->get_own_copy(); // copy on write
+    rep_->append(std::strlen(s), s);
     return *this;
 }
 
