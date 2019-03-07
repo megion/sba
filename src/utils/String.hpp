@@ -32,7 +32,7 @@ public:
     String &operator=(String &&) = delete;
 
     String &operator+=(const String &);
-    String &operator+=(const char*);
+    String &operator+=(const char *);
 
     ~String();
 
@@ -48,6 +48,9 @@ public:
     size_t size() const;
     size_t get_request_count() const; // get this value for debug or test
 };
+
+String operator+(const String &, const String &);
+String operator+(const String &, const char *);
 
 /*
  * string representation share one string for several instances of String

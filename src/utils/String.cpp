@@ -31,10 +31,10 @@ void Srep::assign(size_t len, const char *s) {
 
 void Srep::append(size_t len, const char *s) {
     size_t new_len = length + len;
-    char* new_str = new char[new_len + 1];
+    char *new_str = new char[new_len + 1];
 
     std::strncpy(new_str, str, length);
-    std::strncpy(new_str+length, s, len);
+    std::strncpy(new_str + length, s, len);
     delete[] str;
     str = new_str;
     length = new_len;
@@ -81,6 +81,16 @@ String &String::operator+=(const char *s) {
     rep_ = rep_->get_own_copy(); // copy on write
     rep_->append(std::strlen(s), s);
     return *this;
+}
+
+String operator+(const String &a, const String &b) {
+    String r = a;
+    return r += b;
+}
+
+String operator+(const String &a, const char *b) {
+    String r = a;
+    return r += b;
 }
 
 String::~String() {

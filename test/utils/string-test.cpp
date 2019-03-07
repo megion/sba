@@ -107,6 +107,39 @@ void test_assign_cstring() {
     my_assert(a[1] == 't');
 }
 
+/*
+ * test operator+=
+ */
+void test_concat_operator() {
+    sba::utils::String a = "test";
+    my_assert(a.get_request_count() == 1);
+    // concat char*
+    a += "abc";
+    my_assert(a.get_request_count() == 1);
+    my_assert(a.size() == 7);
+    my_assert(a[4] == 'a');
+
+    sba::utils::String b = "efg";
+    // concat String
+    a += b;
+    my_assert(a.get_request_count() == 1);
+    my_assert(b.get_request_count() == 1);
+
+    my_assert(a.size() == 10);
+    my_assert(a[9] == 'g');
+
+    sba::utils::String c = a;
+    my_assert(a.get_request_count() == 2);
+    my_assert(c.get_request_count() == 2);
+
+    a += c;
+    my_assert(a.get_request_count() == 1);
+    my_assert(c.get_request_count() == 1);
+
+    my_assert(a.size() == 20);
+    my_assert(a[19] == 'g');
+}
+
 void string_test() {
     suite("String");
     mytest(init_string);
@@ -116,6 +149,7 @@ void string_test() {
     mytest(shared_representation);
     mytest(shared_representation_and_destructors);
     mytest(assign_cstring);
+    mytest(concat_operator);
 }
 
 } // namespace test
