@@ -93,6 +93,16 @@ String operator+(const String &a, const char *b) {
     return r += b;
 }
 
+std::ostream& operator<<(std::ostream& os, const String& s) {
+    os<<s.rep_->str;
+    return os;
+}
+
+std::istream& operator>>(std::istream& is, String& s) {
+    is>>s.rep_->str;
+    return is;
+}
+
 String::~String() {
     if (--rep_->req_count == 0) {
         delete rep_;

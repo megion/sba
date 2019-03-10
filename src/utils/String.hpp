@@ -36,6 +36,9 @@ public:
 
     ~String();
 
+    friend std::ostream& operator<<(std::ostream&, const String&);
+    friend std::istream& operator>>(std::istream&, String&);
+
 private:
     void check(size_t i) const;
     char read(size_t i) const;
