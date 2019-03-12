@@ -93,14 +93,30 @@ String operator+(const String &a, const char *b) {
     return r += b;
 }
 
-std::ostream& operator<<(std::ostream& os, const String& s) {
-    os<<s.rep_->str;
+std::ostream &operator<<(std::ostream &os, const String &s) {
+    os << s.rep_->str;
     return os;
 }
 
-std::istream& operator>>(std::istream& is, String& s) {
-    is>>s.rep_->str;
+std::istream &operator>>(std::istream &is, String &s) {
+    is >> s.rep_->str;
     return is;
+}
+
+bool operator==(const String &x, const char *s) {
+    return std::strcmp(x.rep_->str, s) == 0;
+}
+
+bool operator==(const String &x, const String &y) {
+    return std::strcmp(x.rep_->str, y.rep_->str) == 0;
+}
+
+bool operator!=(const String &x, const char *s) {
+    return std::strcmp(x.rep_->str, s) != 0;
+}
+
+bool operator!=(const String &x, const String &y) {
+    return std::strcmp(x.rep_->str, y.rep_->str) != 0;
 }
 
 String::~String() {

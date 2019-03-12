@@ -36,8 +36,14 @@ public:
 
     ~String();
 
-    friend std::ostream& operator<<(std::ostream&, const String&);
-    friend std::istream& operator>>(std::istream&, String&);
+    friend std::ostream &operator<<(std::ostream &, const String &);
+    friend std::istream &operator>>(std::istream &, String &);
+
+    friend bool operator==(const String &, const char *);
+    friend bool operator==(const String &, const String &);
+
+    friend bool operator!=(const String &, const char *);
+    friend bool operator!=(const String &, const String &);
 
 private:
     void check(size_t i) const;

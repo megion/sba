@@ -140,6 +140,19 @@ void test_concat_operator() {
     my_assert(a[19] == 'g');
 }
 
+/*
+ * test operator== and operator!=
+ */
+void test_compare_operators() {
+    sba::utils::String a = "abc";
+    sba::utils::String b = "abc";
+    sba::utils::String c = "abc_cba";
+    my_assert(a == b);
+    my_assert(a == "abc");
+    my_assert(a != c);
+    my_assert(a != "str");
+}
+
 void string_test() {
     suite("String");
     mytest(init_string);
@@ -150,6 +163,7 @@ void string_test() {
     mytest(shared_representation_and_destructors);
     mytest(assign_cstring);
     mytest(concat_operator);
+    mytest(compare_operators);
 }
 
 } // namespace test
