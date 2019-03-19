@@ -1,4 +1,4 @@
-#include "wrapper-test.hpp"
+#include "wrapper-test.h"
 
 namespace test {
 

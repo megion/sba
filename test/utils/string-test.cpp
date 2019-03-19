@@ -1,4 +1,4 @@
-#include "string-test.hpp"
+#include "string-test.h"
 
 namespace test {
 

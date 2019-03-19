@@ -5,7 +5,7 @@
 #include <iostream>
 #include <stdexcept>
 
-#include "console-colors.hpp"
+#include "console-colors.h"
 
 namespace sba {
 namespace utils {

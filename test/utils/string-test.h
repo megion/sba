@@ -1,7 +1,7 @@
 #pragma once
 
-#include "test.hpp"
-#include "utils/String.hpp"
+#include "test.h"
+#include "utils/String.h"
 
 namespace test {
 

@@ -1,5 +1,5 @@
-#include "utils/string-test.hpp"
-#include "utils/wrapper-test.hpp"
+#include "utils/string-test.h"
+#include "utils/wrapper-test.h"
 
 int main(int argc, char **argv) {
     test::wrapper_test();

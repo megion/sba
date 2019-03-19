@@ -4,9 +4,9 @@
 #include <iostream>
 #include <vector>
 
-#include "test.hpp"
+#include "test.h"
 
-#include "utils/wrapper.hpp"
+#include "utils/wrapper.h"
 
 namespace test {
 

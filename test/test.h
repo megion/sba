@@ -5,8 +5,8 @@
 #include <cassert>
 #include <cstdio>
 
-#include "console-colors.hpp"
-#include "utils/wrapper.hpp"
+#include "console-colors.h"
+#include "utils/wrapper.h"
 
 /*
  * Test the given `fn`.
