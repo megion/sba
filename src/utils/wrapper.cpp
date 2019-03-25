@@ -3,6 +3,16 @@
 namespace sba {
 namespace utils {
 
+template <class T>
+bool less(T a, T b) {
+    return a < b;
+}
+
+template <>
+bool less<const char *>(const char *a, const char *b) {
+    return std::strcmp(a, b) < 0;
+}
+
 template <typename T>
 void swap(T *const a, T *const b) {
     T temp = *a; // call copy constructor

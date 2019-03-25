@@ -4,11 +4,22 @@
 #include <exception>
 #include <iostream>
 #include <stdexcept>
+#include <cstring>
 
 #include "console-colors.h"
 
 namespace sba {
 namespace utils {
+
+
+template <class T>
+bool less(T a, T b);
+
+/*
+ * specialization for less function
+ */
+template <>
+bool less<const char *>(const char *a, const char *b);
 
 template <typename T>
 void swap(T *const a, T *const b);
