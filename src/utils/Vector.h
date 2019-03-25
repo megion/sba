@@ -12,7 +12,7 @@ namespace utils {
  *
  * Demo template specialization
  */
-template<T> class Vector {
+template<class T> class Vector {
 
     T* v_;
     size_t len_;
@@ -22,6 +22,11 @@ public:
     explicit Vector(size_t);
 
     ~Vector();
+
+    T& elem(size_t i) {return v_[i];}
+    T& operator[](size_t i);
+
+    void swap(Vector&);
 
 private:
 
