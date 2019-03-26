@@ -6,7 +6,7 @@
 
 #include "test.h"
 
-#include "utils/wrapper.h"
+#include "wrap/wrapper.h"
 
 namespace test {
 

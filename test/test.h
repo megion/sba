@@ -6,7 +6,8 @@
 #include <cstdio>
 
 #include "console-colors.h"
-#include "utils/wrapper.h"
+#include "wrap/wrapper.h"
+#include "wrap/assert.h"
 
 /*
  * Test the given `fn`.

@@ -27,6 +27,8 @@ public:
     T &elem(size_t i) { return v_[i]; }
     T &operator[](size_t i);
 
+    size_t size() const { return len_; }
+
     void swap(Vector &);
 
 private:
@@ -76,6 +78,17 @@ public:
     }
 };
 
+/*
+ * swap specialization for Vector<T>
+ */
+template <class T>
+void swap(Vector<T> &, Vector<T> &);
+
+/*
+ * sort
+ */
+template <class T>
+void sort(Vector<T> &);
 
 } // namespace utils
 } // namespace sba
