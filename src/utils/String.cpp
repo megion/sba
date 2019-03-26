@@ -3,16 +3,17 @@
 namespace sba {
 namespace utils {
 
-typedef String::Srep Srep;
-
-Srep::Srep(size_t len, const char *s) : length(len), req_count(1) {
-    str = new char[length + 1]; // +1 for 0 ending
+template <typename Char>
+BasicString<Char>::Srep::Srep(size_t len, const char *s) : length(len), req_count(1) {
+    str = new Char[length + 1]; // +1 for 0 ending
     std::strcpy(str, s);
 }
 
-Srep::~Srep() { delete[] str; }
+template <typename Char>
+BasicString<Char>::Srep::~Srep() { delete[] str; }
 
-Srep *Srep::get_own_copy() {
+template <typename Char>
+typename BasicString<Char>::Srep *BasicString<Char>::Srep::get_own_copy() {
     if (req_count == 1) {
         return this;
     }
