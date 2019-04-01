@@ -60,6 +60,7 @@ public:
     ~BasicString();
 
     // refers to a full specialization for this particular T
+    // one-to-one relationship with class BasicString
     friend std::ostream &operator<<<>(std::ostream &, const BasicString &);
     friend std::istream &operator>><>(std::istream &, BasicString &);
 
