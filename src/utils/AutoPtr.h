@@ -1,8 +1,3 @@
-#pragma once
-
-namespace sba {
-namespace utils {
-
 /**
  * Demo auto_ptr from Ctraustrup C++ book (head 14.4)
  * Support Resource Acquisition is Initialization technic
@@ -14,12 +9,17 @@ namespace utils {
  *
  * For array use vector, for exmaple: vector<double> tmp( src.size() );
  */
+#pragma once
+
+namespace sba {
+namespace utils {
+
+// helper
+template <class Y>
+struct AutoPtrRef {};
+
 template <class X>
 class AutoPtr {
-
-    // helper
-    template <class Y>
-    struct AutoPtrRef {};
 
     X *ptr_;
 
@@ -35,6 +35,22 @@ public:
     template <class Y>
     AutoPtr(AutoPtr<Y> &a) throw(); // copy, next a.ptr = nullptr
 
+    // copy operators
+    AutoPtr &operator=(AutoPtr &a) throw(); // copy, next a.ptr = nullptr
+    template <class Y>
+    AutoPtr &operator=(AutoPtr<Y> &a) throw(); // copy, next a.ptr = nullptr
+
+    X &operator*() const throw() { return *ptr_; }
+    X *operator->() const throw() { return ptr_; }
+
+    X *get() const throw() { return ptr_; }
+
+    /*
+     * ownership transfer
+     */
+    X *release() throw();
+    void reset(X *ptr = nullptr) throw();
+
 private:
 };
 
@@ -49,6 +65,36 @@ template <class Y>
 AutoPtr<X>::AutoPtr(AutoPtr<Y> &a) throw() {
     ptr_ = a.ptr_;
     a.ptr_ = nullptr;
+}
+
+template <class X>
+AutoPtr<X> &AutoPtr<X>::operator=(AutoPtr &a) throw() {
+    ptr_ = a.ptr_;
+    a.ptr_ = nullptr;
+    return *this;
+}
+
+template <class X>
+template <class Y>
+AutoPtr<X> &AutoPtr<X>::operator=(AutoPtr<Y> &a) throw() {
+    ptr_ = a.ptr_;
+    a.ptr_ = nullptr;
+    return *this;
+}
+
+template <class X>
+X *AutoPtr<X>::release() throw() {
+    X *t = ptr_;
+    ptr_ = nullptr;
+    return t;
+}
+
+template <class X>
+void AutoPtr<X>::reset(X *ptr) throw() {
+    if (ptr != ptr_) {
+        delete ptr_;
+        ptr_ = ptr;
+    }
 }
 
 // template <class X>
