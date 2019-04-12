@@ -75,7 +75,7 @@ private:
     void write(size_t i, Char c);
 
 public:
-    Cref operator[](size_t i);       // s.operator[i] === s[i]
+    Cref operator[](size_t i);       // s.operator[i] === s[i] => s[i] = 'a'
     Char operator[](size_t i) const; // s[i] where s is const object
 
     size_t size() const;

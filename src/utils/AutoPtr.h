@@ -14,7 +14,7 @@
 namespace sba {
 namespace utils {
 
-// helper
+// helper for realization destruction copy semantic
 template <class Y>
 struct AutoPtrRef {};
 
