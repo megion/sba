@@ -15,17 +15,20 @@ namespace sba {
 namespace utils {
 
 // helper for realization destruction copy semantic
-template <class Y>
-struct AutoPtrRef {};
+// template <class Y>
+// struct AutoPtrRef;
 
 template <class X>
 class AutoPtr {
 
+public:
+    class AutoPtrRef;
+    typedef X element_type;
+
+private:
     X *ptr_;
 
 public:
-    typedef X element_type;
-
     // throw() is nothing generate
     explicit AutoPtr(X *ptr = nullptr) throw() { ptr_ = ptr; };
     ~AutoPtr() throw() { delete ptr_; }
@@ -51,7 +54,60 @@ public:
     X *release() throw();
     void reset(X *ptr = nullptr) throw();
 
+    /**
+     * Copy from AutoPtrRef
+     *
+     * Trasformation constructor AutoPtrRef -> AutoPtr
+     * It called when:
+     *
+     * AutoPtrRef pref;
+     * AutoPtr p = pref; // ==> AutoPtr p = AutoPtr(pref);
+     */
+    AutoPtr(AutoPtrRef ref) throw();
+
+    /**
+     * Copy to AutoPtrRef
+     *
+     * Transformation operator AutoPtr -> AutoPtrRef
+     * It called when:
+     *
+     * AutoPtr p;
+     * AutoPtrRef pref = p;
+     */
+    operator AutoPtrRef() const;
+
+    /**
+     * Destuction copy from AutoPtr
+     *
+     * Convert AutoPtr<X> -> AutoPtr<Y>
+     * It called when:
+     *
+     * where X is child Y(syper class). X <- Y
+     * 
+     * X x;
+     * AutoPtr<X> px = &x;
+     * AutoPtr<Y> py = px; // OK convert X* to Y*
+     */
+    template <class Y>
+    operator AutoPtr<Y>();
+
 private:
+};
+
+template <typename X>
+class AutoPtr<X>::AutoPtrRef {
+    friend class AutoPtr;
+
+private:
+    AutoPtr &p_; // link to AutoPtr value
+
+    AutoPtrRef(AutoPtr &p) : p_(p) {}
+
+public:
+    /* conversion operator AutoPtrRef to X* */
+    // operator X*() const { return p_.ptr_; }
+    /* ptr_ref.operator=('a') */
+    // void operator=(Char c) { s_.write(i_, c); }
 };
 
 template <class X>
