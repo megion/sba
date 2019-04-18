@@ -57,7 +57,7 @@ public:
     /**
      * Copy from AutoPtrRef
      *
-     * Trasformation constructor AutoPtrRef -> AutoPtr
+     * Convert constructor AutoPtrRef -> AutoPtr
      * It called when:
      *
      * AutoPtrRef pref;
@@ -68,7 +68,7 @@ public:
     /**
      * Copy to AutoPtrRef
      *
-     * Transformation operator AutoPtr -> AutoPtrRef
+     * Convert operator AutoPtr -> AutoPtrRef
      * It called when:
      *
      * AutoPtr p;
@@ -83,7 +83,7 @@ public:
      * It called when:
      *
      * where X is child Y(syper class). X <- Y
-     * 
+     *
      * X x;
      * AutoPtr<X> px = &x;
      * AutoPtr<Y> py = px; // OK convert X* to Y*
@@ -153,10 +153,15 @@ void AutoPtr<X>::reset(X *ptr) throw() {
     }
 }
 
-// template <class X>
-// template <class Y>
-// struct AutoPtr<X>::AutoPtrRef<Y> {
-//};
+template <class X>
+AutoPtr<X>::AutoPtr(AutoPtrRef ref) throw() {
+    //ptr_ = ref.p_;
+}
+
+template <class X>
+AutoPtr<X>::operator AutoPtrRef() const {
+    return AutoPtrRef(ptr_);
+}
 
 } // namespace utils
 } // namespace sba
