@@ -94,6 +94,9 @@ public:
 private:
 };
 
+/*
+ * helper for realization destruction copy semantic
+ */
 template <typename X>
 class AutoPtr<X>::AutoPtrRef {
     friend class AutoPtr;
@@ -155,7 +158,16 @@ void AutoPtr<X>::reset(X *ptr) throw() {
 
 template <class X>
 AutoPtr<X>::AutoPtr(AutoPtrRef ref) throw() {
-    //ptr_ = ref.p_;
+    /*
+     * set ptr_ form ref
+     */
+    ptr_ = ref.p_.ptr_;
+
+    /*
+     * TODO: update AutoPtrRef
+     * May be it is error.
+     */
+    ref.p_ = *(this);
 }
 
 template <class X>
