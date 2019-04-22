@@ -20,6 +20,7 @@ namespace utils {
 
 template <class X>
 class AutoPtr {
+    friend class AutoPtr;
 
 public:
     class AutoPtrRef;

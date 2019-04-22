@@ -2,14 +2,22 @@
 
 namespace test {
 
-void test_convert() {
-    Parent x;
-    sba::utils::AutoPtr<Parent> px(&x); // OK it works
-    sba::utils::AutoPtr<Parent> px = &x; // TODO error. Why does not it work?
+static void test_convert() {
+    Child child;
+    sba::utils::AutoPtr<Child> p_child(&child); // OK it works
 
-    sba::utils::AutoPtr<Child> py = px; // OK convert Child* to Parent*
+    /* 
+     * TODO error. It doesn't work because there is not AutoPtr(const AutoPtr &a)
+     * AutoPtr<Parent> px = &x => 
+     * const AutoPtr<Parent> temp(&x); 
+     * AutoPtr<Parent> px(&x); // there is not
+     */
+    //sba::utils::AutoPtr<Parent> px = &x;
+    
+    // OK convert Child* to Parent*
+    sba::utils::AutoPtr<Parent> p_parent(p_child);
 
-    my_assert(py.get() == px.get());
+    //my_assert(py.get() == px.get());
 }
 
 void auto_ptr_test() {
