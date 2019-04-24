@@ -4,8 +4,8 @@ namespace test {
 
 static void test_convert() {
     Child* child = new Child();
-    //sba::utils::AutoPtr<Child> p_child = child; // OK it works
-    sba::utils::AutoPtr<Child> p_child(child); // OK it works
+    sba::utils::AutoPtr<Child> p_child = child; // OK it works
+    //sba::utils::AutoPtr<Child> p_child(child); // OK it works
 
     /* 
      * TODO error. It doesn't work because there is not AutoPtr(const AutoPtr &a)

@@ -15,6 +15,8 @@ public:
     Ptr(T *);
     Ptr(const Ptr &);
 
+    Ptr &operator=(const Ptr&);
+
     /* convert Ptr<T> to Ptr<2> */
     template <class T2>
     operator Ptr<T2>();
@@ -29,6 +31,11 @@ Ptr<T>::Ptr(T *p) : p_(p) {}
 
 template <class T>
 Ptr<T>::Ptr(const Ptr &p) : p_(p.p_) {}
+
+template <class T>
+Ptr<T> &Ptr<T>::operator=(const Ptr &p) {
+    p_ = p.p_;
+}
 
 template <class T>
 template <class T2>
