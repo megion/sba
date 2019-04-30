@@ -36,8 +36,8 @@ public:
 
     // copy constructor takes not const argument
     AutoPtr(AutoPtr &a) throw(); // copy, next a.ptr = nullptr
-    // template <class Y>
-    // AutoPtr(AutoPtr<Y> &a) throw(); // copy, next a.ptr = nullptr
+    template <class Y>
+    AutoPtr(AutoPtr<Y> &a) throw(); // copy, next a.ptr = nullptr
 
     // copy operators
     // AutoPtr &operator=(const AutoPtr &a) throw(); // copy, next a.ptr =
@@ -57,15 +57,14 @@ public:
     void reset(X *ptr = nullptr) throw();
 
     /**
-     * Copy from AutoPtrRef
-     *
      * Convert constructor AutoPtrRef -> AutoPtr
+     * Copy from AutoPtrRef
      * It called when:
      *
      * AutoPtrRef pref;
      * AutoPtr p = pref; // ==> AutoPtr p = AutoPtr(pref);
      */
-     AutoPtr(const AutoPtrRef ref) throw();
+    AutoPtr(const AutoPtrRef ref) throw();
 
     /**
      * Convert operator AutoPtr -> AutoPtrRef
@@ -121,11 +120,11 @@ AutoPtr<X>::AutoPtr(AutoPtr &a) throw() {
     a.ptr_ = nullptr;
 }
 
-// template <class X>
-// template <class Y>
-// AutoPtr<X>::AutoPtr(AutoPtr<Y> &a) throw() {
-// ptr_ = a.release();
-//}
+template <class X>
+template <class Y>
+AutoPtr<X>::AutoPtr(AutoPtr<Y> &a) throw() {
+    ptr_ = a.release();
+}
 
 // template <class X>
 // template <class Y>
@@ -170,7 +169,7 @@ AutoPtr<X>::AutoPtr(const AutoPtrRef ref) throw() {
      * TODO: update AutoPtrRef
      * May be it is error.
      */
-    //ref.p_ = *(this);
+    // ref.p_ = *(this);
 }
 
 template <class X>

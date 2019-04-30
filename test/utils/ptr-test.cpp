@@ -3,11 +3,8 @@
 namespace test {
 
 void test_convert() {
-    //Shape s;
-    //sba::utils::Ptr<Shape> ps = &s;
-
     Circle c;
-    sba::utils::Ptr<Circle> pc = &c;
+    sba::utils::Ptr<Circle> pc = &c; // Ptr(const Ptr &p)
     sba::utils::Ptr<Shape> ps2 = pc; // OK convert Circle* to Shape*
     //sba::utils::Ptr<Circle> pc2 = ps; // should not compile
 
