@@ -11,21 +11,11 @@
  */
 #pragma once
 
-#include <iostream>
-
 namespace sba {
 namespace utils {
 
-// helper for realization destruction copy semantic
-// template <class Y>
-// struct AutoPtrRef;
-
 template <class X>
 class AutoPtr {
-
-public:
-    class AutoPtrRef;
-    typedef X element_type;
 
 private:
     X *ptr_;
@@ -34,16 +24,15 @@ public:
     AutoPtr(X *ptr = nullptr) throw() : ptr_(ptr){};
     ~AutoPtr() throw() { delete ptr_; }
 
-    // copy constructor takes not const argument
-    AutoPtr(AutoPtr &a) throw(); // copy, next a.ptr = nullptr
+    // copy constructor takes not const argument, next a.ptr = nullptr
+    AutoPtr(AutoPtr &a) throw();
     template <class Y>
-    AutoPtr(AutoPtr<Y> &a) throw(); // copy, next a.ptr = nullptr
+    AutoPtr(AutoPtr<Y> &a) throw();
 
-    // copy operators
-    // AutoPtr &operator=(const AutoPtr &a) throw(); // copy, next a.ptr =
-    // nullptr AutoPtr &operator=(const AutoPtrRef &a) throw(); template <class
-    // Y> AutoPtr &operator=(AutoPtr<Y> &a) throw(); // copy, next a.ptr =
-    // nullptr
+    // copy operators, next a.ptr = nullptr
+    AutoPtr &operator=(AutoPtr &a) throw();
+    template <class Y>
+    AutoPtr &operator=(AutoPtr<Y> &a) throw();
 
     X &operator*() const throw() { return *ptr_; }
     X *operator->() const throw() { return ptr_; }
@@ -56,96 +45,8 @@ public:
     X *release() throw();
     void reset(X *ptr = nullptr) throw();
 
-    /**
-     * Convert constructor AutoPtrRef -> AutoPtr
-     * Copy from AutoPtrRef
-     * It called when:
-     *
-     * AutoPtrRef pref;
-     * AutoPtr p = pref; // ==> AutoPtr p = AutoPtr(pref);
-     */
-    AutoPtr(const AutoPtrRef ref) throw();
-
-    /**
-     * Convert operator AutoPtr -> AutoPtrRef
-     * Copy to AutoPtrRef
-     * It called when:
-     *
-     * AutoPtr p;
-     * AutoPtrRef pref = p;
-     */
-    operator AutoPtrRef() const;
-
-    /**
-     * Destuction copy from AutoPtr
-     *
-     * Convert AutoPtr<X> -> AutoPtr<Y>
-     * It called when:
-     *
-     * where X is child Y(syper class). X <- Y
-     *
-     * X x;
-     * AutoPtr<X> px = &x;
-     * AutoPtr<Y> py = px; // OK convert X* to Y*
-     */
-    // template <class Y>
-    // operator AutoPtr<Y>();
-
 private:
 };
-
-/*
- * helper for realization destruction copy semantic
- */
-template <typename X>
-class AutoPtr<X>::AutoPtrRef {
-    friend class AutoPtr;
-
-private:
-    AutoPtr &p_; // link to AutoPtr value
-
-    AutoPtrRef(AutoPtr &p) : p_(p) {}
-
-public:
-    /* conversion operator AutoPtrRef to X* */
-    // operator X*() const { return p_.ptr_; }
-    /* ptr_ref.operator=('a') */
-    // void operator=(Char c) { s_.write(i_, c); }
-};
-
-template <class X>
-AutoPtr<X>::AutoPtr(AutoPtr &a) throw() {
-    std::cout << "test: " << a.ptr_ << std::endl;
-    ptr_ = a.ptr_;
-    a.ptr_ = nullptr;
-}
-
-template <class X>
-template <class Y>
-AutoPtr<X>::AutoPtr(AutoPtr<Y> &a) throw() {
-    ptr_ = a.release();
-}
-
-// template <class X>
-// template <class Y>
-// AutoPtr<X> &AutoPtr<X>::operator=(AutoPtr<Y> &a) throw() {
-// ptr_ = a.release();
-// return *this;
-//}
-
-// template <class X>
-// AutoPtr<X> &AutoPtr<X>::operator=(const AutoPtr &a) throw() {
-////AutoPtr temp = release();
-////ptr_ = a.release();
-// return *this;
-//}
-
-// template <class X>
-// AutoPtr<X> &AutoPtr<X>::operator=(const AutoPtrRef &a) throw() {
-// AutoPtr temp = release();
-// ptr_ = a.p_.release();
-// return *this;
-//}
 
 template <class X>
 X *AutoPtr<X>::release() throw() {
@@ -163,19 +64,33 @@ void AutoPtr<X>::reset(X *ptr) throw() {
 }
 
 template <class X>
-AutoPtr<X>::AutoPtr(const AutoPtrRef ref) throw() {
-    ptr_ = ref.p_.ptr_;
-    /*
-     * TODO: update AutoPtrRef
-     * May be it is error.
-     */
-    // ref.p_ = *(this);
+AutoPtr<X>::AutoPtr(AutoPtr &a) throw() {
+    ptr_ = a.ptr_;
+    a.ptr_ = nullptr;
 }
 
 template <class X>
-AutoPtr<X>::operator AutoPtrRef() const {
-    return AutoPtrRef(ptr_);
+template <class Y>
+AutoPtr<X>::AutoPtr(AutoPtr<Y> &a) throw() {
+    AutoPtr temp = release(); // will be free automaticaly
+    ptr_ = a.release();
 }
+
+template <class X>
+template <class Y>
+AutoPtr<X> &AutoPtr<X>::operator=(AutoPtr<Y> &a) throw() {
+    AutoPtr temp = release(); // will be free automaticaly
+    ptr_ = a.release();
+    return *this;
+}
+
+template <class X>
+AutoPtr<X> &AutoPtr<X>::operator=(AutoPtr &a) throw() {
+    AutoPtr temp = release(); // will be free automaticaly
+    ptr_ = a.release();
+    return *this;
+}
+
 
 } // namespace utils
 } // namespace sba
