@@ -7,7 +7,11 @@ namespace test {
 
 void auto_ptr_test();
 
-class Parent {};
+class Parent {
+public:
+    virtual void foo(){};
+};
+
 class Child : public Parent {};
 
-}
+} // namespace test

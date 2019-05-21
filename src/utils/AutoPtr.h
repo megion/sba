@@ -72,8 +72,10 @@ AutoPtr<X>::AutoPtr(AutoPtr &a) throw() {
 template <class X>
 template <class Y>
 AutoPtr<X>::AutoPtr(AutoPtr<Y> &a) throw() {
-    AutoPtr temp = release(); // will be free automaticaly
     ptr_ = a.release();
+
+    // allow downcast
+    //ptr_ = dynamic_cast<X*>(a.release());
 }
 
 template <class X>
@@ -90,7 +92,6 @@ AutoPtr<X> &AutoPtr<X>::operator=(AutoPtr &a) throw() {
     ptr_ = a.release();
     return *this;
 }
-
 
 } // namespace utils
 } // namespace sba

@@ -18,8 +18,16 @@ static void test_convert() {
 
     my_assert(p_parent.get() != nullptr);
     my_assert(p_child.get() == nullptr);
-}
 
+
+    sba::utils::AutoPtr<Parent> p_parent2 = p_parent;
+
+    my_assert(p_parent2.get() != nullptr);
+    my_assert(p_parent.get() == nullptr);
+
+    // downcast
+    sba::utils::AutoPtr<Child> p_child2(p_parent2);
+}
 
 static void test_std_auto_ptr() {
     Child* child = new Child();
@@ -31,6 +39,13 @@ static void test_std_auto_ptr() {
 
     my_assert(p_parent.get() != nullptr);
     my_assert(p_child.get() == nullptr);
+
+    std::auto_ptr<Parent> p_parent2 = p_parent;
+
+    my_assert(p_parent2.get() != nullptr);
+    my_assert(p_parent.get() == nullptr);
+
+    //std::auto_ptr<Child> p_child2(p_parent2);
 }
 
 void auto_ptr_test() {
