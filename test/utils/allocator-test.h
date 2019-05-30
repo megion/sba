@@ -9,7 +9,7 @@ void allocator_test();
 class Arena {
 public:
     virtual void *alloc(size_t) = 0;
-    virtual void free(void *) = 0;
+    virtual void free(void *, size_t) = 0;
 };
 
 class Persistent : public Arena {
@@ -22,7 +22,9 @@ public:
         return &buff_[len_];
     };
 
-    void free(void *b) {
+    void free(void *b, size_t sz) {
+        void *dest = b + sz;
+        std::memcpy(b, dest, len_ - (b + sz - buff_));
     };
 
 private:
