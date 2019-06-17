@@ -11,7 +11,7 @@ public:
     virtual void *alloc(size_t) = 0;
     virtual void free(void *, size_t) = 0;
 
-    virtual ~Arena() {};
+    virtual ~Arena(){};
 };
 
 class Persistent : public Arena {
@@ -48,6 +48,11 @@ public:
 private:
     char buff_[100];
     size_t len_;
+};
+
+class AA {
+private:
+    char data_[10];
 };
 
 } // namespace test
