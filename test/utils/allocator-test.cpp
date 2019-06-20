@@ -2,7 +2,7 @@
 #include <memory>
 
 void *operator new(size_t sz, test::Arena *a) {
-    std::cout << "overloaded new operator" << std::endl;
+    std::cout << "overloaded new operator, size:" << sz << std::endl;
     return a->alloc(sz);
 }
 
@@ -49,18 +49,33 @@ static void test_allocate_memory() {
 }
 
 static void test_overloaded_new_operator() {
+    /* create memory allocator */
     Arena *persistent = new Persistent();
 
-    AA* p = new (Persistent)AA();
+    print_bytes(persistent->get_buff());
 
-    p->~AA();
+    /* call placement new(size_t sz, test::Arena *a) => new(sizeof(AA), persistent)
+     * and
+     * create AA() and allocate it in Arena 
+     *
+     */
+    AA* p = new (persistent)AA();
 
+    print_bytes(persistent->get_buff());
+    print_bytes(p->data_);
+
+    /* remove p object from memory allocator */
+    p->~AA(); // first - call object destructor
+    persistent->free(p, sizeof(AA)); // second remove p from allocator
+
+    /* delete memory allocator */
     delete persistent;
 }
 
 void allocator_test() {
     suite("Allocator");
     mytest(allocate_memory);
+    mytest(overloaded_new_operator);
 }
 
 } // namespace test

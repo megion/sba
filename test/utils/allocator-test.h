@@ -10,6 +10,7 @@ class Arena {
 public:
     virtual void *alloc(size_t) = 0;
     virtual void free(void *, size_t) = 0;
+    virtual void *get_buff() = 0;
 
     virtual ~Arena(){};
 };
@@ -45,16 +46,34 @@ public:
         len_ -= sz;
     };
 
+
+    void *get_buff() {
+        return buff_;
+    }
+
 private:
     char buff_[100];
     size_t len_;
 };
 
 class AA {
-private:
-    char data_[10];
+public:
+    ~AA() { std::cout << "AA destructor" << std::endl; }
+
+public:
+    char data_[10] = "hello";
 };
 
 } // namespace test
 
 void *operator new(size_t sz, test::Arena *a);
+
+template <typename T>
+void print_bytes(const T &input, std::ostream &os = std::cout) {
+    const unsigned char *p = reinterpret_cast<const unsigned char *>(&input);
+    os << std::hex << std::showbase;
+    os << "[";
+    for (unsigned int i = 0; i < sizeof(T); ++i)
+        os << static_cast<int>(*(p++)) << " ";
+    os << "]" << std::endl;
+}
