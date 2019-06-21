@@ -46,7 +46,6 @@ public:
         len_ -= sz;
     };
 
-
     void *get_buff() {
         return buff_;
     }
@@ -70,10 +69,11 @@ void *operator new(size_t sz, test::Arena *a);
 
 template <typename T>
 void print_bytes(const T &input, std::ostream &os = std::cout) {
-    const unsigned char *p = reinterpret_cast<const unsigned char *>(&input);
-    os << std::hex << std::showbase;
+    const char *p = reinterpret_cast<const char *>(&input);
+    //os << std::hex << std::showbase;
     os << "[";
-    for (unsigned int i = 0; i < sizeof(T); ++i)
-        os << static_cast<int>(*(p++)) << " ";
+    for (size_t i = 0; i < sizeof(T); ++i) {
+        os << (*(p + i)) << " ";
+    }
     os << "]" << std::endl;
 }
